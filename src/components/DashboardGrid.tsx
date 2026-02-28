@@ -1,43 +1,83 @@
-import { Box } from '@mui/material'
+import { Responsive, WidthProvider } from 'react-grid-layout/legacy'
+import type { LayoutItem, ResponsiveLayouts } from 'react-grid-layout'
 import type { WidgetConfig } from '../types/widget.types'
 import { WidgetRenderer } from './widgets/WidgetRenderer'
-import { getGridSpan } from '../utils/widget.utils'
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
+
+const ResponsiveGridLayout = WidthProvider(Responsive)
 
 type DashboardGridProps = {
   widgets: WidgetConfig[]
   onRemoveWidget: (id: number) => void
+  onLayoutChange: (_layout: unknown, layouts: ResponsiveLayouts) => void
 }
 
-export const DashboardGrid = ({ widgets, onRemoveWidget }: DashboardGridProps) => {
+export const DashboardGrid = ({ widgets, onRemoveWidget, onLayoutChange }: DashboardGridProps) => {
+  // Convert widgets to react-grid-layout format
+  const layouts: ResponsiveLayouts = {
+    lg: widgets.map((widget): LayoutItem => ({
+      i: widget.id.toString(),
+      x: widget.layout.x,
+      y: widget.layout.y,
+      w: widget.layout.w,
+      h: widget.layout.h,
+      minW: widget.layout.minW ?? 1,
+      minH: widget.layout.minH ?? 1,
+      maxW: widget.layout.maxW,
+      maxH: widget.layout.maxH,
+    })),
+    md: widgets.map((widget): LayoutItem => ({
+      i: widget.id.toString(),
+      x: widget.layout.x,
+      y: widget.layout.y,
+      w: widget.layout.w,
+      h: widget.layout.h,
+      minW: widget.layout.minW ?? 1,
+      minH: widget.layout.minH ?? 1,
+      maxW: widget.layout.maxW,
+      maxH: widget.layout.maxH,
+    })),
+    sm: widgets.map((widget): LayoutItem => ({
+      i: widget.id.toString(),
+      x: 0,
+      y: widgets.indexOf(widget),
+      w: 1,
+      h: widget.layout.h,
+      minW: 1,
+      minH: widget.layout.minH ?? 1,
+    })),
+    xs: widgets.map((widget): LayoutItem => ({
+      i: widget.id.toString(),
+      x: 0,
+      y: widgets.indexOf(widget),
+      w: 1,
+      h: widget.layout.h,
+      minW: 1,
+      minH: widget.layout.minH ?? 1,
+    })),
+  }
+
   return (
-    <Box
+    <ResponsiveGridLayout
       className="widget-grid"
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: {
-          xs: '1fr',
-          md: 'repeat(3, minmax(0, 1fr))',
-        },
-        gap: 3,
-      }}
+      layouts={layouts}
+      onLayoutChange={onLayoutChange}
+      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+      cols={{ lg: 3, md: 3, sm: 1, xs: 1, xxs: 1 }}
+      rowHeight={120}
+      isDraggable={true}
+      isResizable={true}
+      margin={[24, 24]}
+      containerPadding={[0, 0]}
+      useCSSTransforms={true}
     >
-      {widgets.map((w) => {
-        const span = getGridSpan(w.type)
-        return (
-          <Box
-            key={w.id}
-            sx={{
-              gridColumn: {
-                xs: 'span 1',
-                md: `span ${span}`,
-              },
-            }}
-          >
-            <WidgetRenderer widget={w} onRemove={onRemoveWidget} />
-          </Box>
-        )
-      })}
-    </Box>
+      {widgets.map((widget) => (
+        <div key={widget.id} style={{ height: '100%' }}>
+          <WidgetRenderer widget={widget} onRemove={onRemoveWidget} />
+        </div>
+      ))}
+    </ResponsiveGridLayout>
   )
 }
 

@@ -9,7 +9,7 @@ type WeatherWidgetProps = {
 export const WeatherWidget = ({ onRemove }: WeatherWidgetProps) => {
   return (
     <WidgetCard
-      title="San Francisco"
+      title="Ho Chi Minh"
       subtitle="Weather"
       onRemove={onRemove}
       className="weather-card"
@@ -20,7 +20,7 @@ export const WeatherWidget = ({ onRemove }: WeatherWidgetProps) => {
         </Box>
         <Box>
           <Typography variant="h3" component="div">
-            72°F
+            36°C
           </Typography>
           <Typography variant="h6" color="text.secondary">
             Sunny

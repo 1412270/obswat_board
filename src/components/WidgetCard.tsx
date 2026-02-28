@@ -11,8 +11,8 @@ type WidgetCardProps = {
 
 export const WidgetCard = ({ title, subtitle, onRemove, className, children }: WidgetCardProps) => {
   return (
-    <Card className={`widget-card ${className ?? ''}`}>
-      <CardContent>
+    <Card className={`widget-card ${className ?? ''}`} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}>
         <div className="widget-header">
           <Box>
             {subtitle && (
@@ -28,7 +28,9 @@ export const WidgetCard = ({ title, subtitle, onRemove, className, children }: W
             <CloseIcon fontSize="small" />
           </IconButton>
         </div>
-        {children}
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {children}
+        </Box>
       </CardContent>
     </Card>
   )
