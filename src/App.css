@@ -1,0 +1,49 @@
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  padding: 32px 40px 40px;
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    padding: 24px 16px 32px;
+  }
+}
+
+.widget-card {
+  border-radius: 20px !important;
+  box-shadow: 0px 12px 30px rgba(15, 23, 42, 0.08) !important;
+  border: 1px solid #eef1f8;
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.widget-subtitle {
+  color: #6b7280;
+}
+
+.weather-card {
+  background: radial-gradient(circle at top left, #fff7e6, #ffffff);
+}
+
+.metric-trend-up {
+  color: #16a34a;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+}
+
+.widget-grid {
+  margin-top: 24px;
+}
