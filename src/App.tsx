@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { Box, CssBaseline, ThemeProvider } from '@mui/material'
 import type { ResponsiveLayouts, LayoutItem } from 'react-grid-layout'
-import type { WidgetType } from './types/widget.types'
+import type { WidgetType, WidgetSettings } from './types/widget.types'
 import { defaultWidgets } from './constants/widgets.constants'
 import { dashboardTheme } from './theme/theme'
 import { DashboardHeader } from './components/DashboardHeader'
@@ -26,6 +26,12 @@ function App() {
   const handleRemoveWidget = (id: number) => {
     setWidgets((prev) => prev.filter((w) => w.id !== id))
   }
+
+  const handleSettingsChange = useCallback((id: number, settings: WidgetSettings) => {
+    setWidgets((prev) =>
+      prev.map((widget) => (widget.id === id ? { ...widget, settings } : widget))
+    )
+  }, [])
 
   const handleLayoutChange = useCallback((_layout: unknown, layouts: ResponsiveLayouts) => {
     // Update widget layouts based on react-grid-layout changes
@@ -66,6 +72,7 @@ function App() {
             widgets={widgets} 
             onRemoveWidget={handleRemoveWidget}
             onLayoutChange={handleLayoutChange}
+            onSettingsChange={handleSettingsChange}
           />
         </main>
 

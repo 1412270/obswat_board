@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { WidgetCard } from '../WidgetCard'
+import { WidgetSettingsDialog } from '../dialogs/WidgetSettingsDialog'
+import type { WidgetSettings } from '../../types/widget.types'
 
 type ClockWidgetProps = {
   onRemove: () => void
+  settings?: WidgetSettings
+  onSettingsChange?: (settings: WidgetSettings) => void
 }
 
-export const ClockWidget = ({ onRemove }: ClockWidgetProps) => {
+export const ClockWidget = ({ onRemove, settings, onSettingsChange }: ClockWidgetProps) => {
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const [now, setNow] = useState<Date>(() => new Date())
 
   useEffect(() => {
@@ -27,27 +33,59 @@ export const ClockWidget = ({ onRemove }: ClockWidgetProps) => {
     day: 'numeric',
   })
 
+  const defaultTitle = 'Current Time'
+  const defaultSubtitle = 'Clock'
+
+  // For clock, we use the current time as title if no custom title is set
+  const title = settings?.title ?? time
+  const subtitle = settings?.subtitle ?? defaultSubtitle
+
+  const settingsButton = onSettingsChange ? (
+    <IconButton size="small" onClick={() => setSettingsOpen(true)} aria-label="Widget settings">
+      <SettingsIcon fontSize="small" />
+    </IconButton>
+  ) : undefined
+
   return (
-    <WidgetCard title={time} subtitle="Current Time" onRemove={onRemove}>
-      <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 1 }}>
-        <Box
-          sx={{
-            width: 40,
-            height: 40,
-            borderRadius: 2,
-            bgcolor: '#e0e7ff',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <AccessTimeIcon sx={{ color: '#4f46e5' }} />
-        </Box>
-        <Typography variant="body1" color="text.secondary">
-          {date}
-        </Typography>
-      </Stack>
-    </WidgetCard>
+    <>
+      <WidgetCard
+        title={title}
+        subtitle={subtitle}
+        onRemove={onRemove}
+        settingsButton={settingsButton}
+        textColor={settings?.textColor}
+        textSize={settings?.textSize}
+      >
+        <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 1 }}>
+          <Box
+            sx={{
+              width: 40,
+              height: 40,
+              borderRadius: 2,
+              bgcolor: 'rgba(0, 102, 204, 0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <AccessTimeIcon sx={{ color: '#0066cc' }} />
+          </Box>
+          <Typography variant="body1" color="text.secondary">
+            {date}
+          </Typography>
+        </Stack>
+      </WidgetCard>
+      {onSettingsChange && (
+        <WidgetSettingsDialog
+          open={settingsOpen}
+          onClose={() => setSettingsOpen(false)}
+          settings={settings ?? {}}
+          onSettingsChange={onSettingsChange}
+          defaultTitle={defaultTitle}
+          defaultSubtitle={defaultSubtitle}
+        />
+      )}
+    </>
   )
 }
 

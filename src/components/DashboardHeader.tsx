@@ -10,8 +10,10 @@ export const DashboardHeader = ({ onAddWidget }: DashboardHeaderProps) => {
     <AppBar
       position="static"
       elevation={0}
-      color="transparent"
-      sx={{ borderBottom: '1px solid #e5e7eb', bgcolor: 'transparent' }}
+      sx={{
+        backgroundColor: '#0f172a',
+        borderBottom: '1px solid #2d3748',
+      }}
     >
       <Toolbar
         sx={{
@@ -23,10 +25,10 @@ export const DashboardHeader = ({ onAddWidget }: DashboardHeaderProps) => {
         }}
       >
         <Box>
-          <Typography variant="h5" component="h1">
+          <Typography variant="h5" component="h1" sx={{ color: '#e8eaed', fontWeight: 600 }}>
             Dashboard
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: '#9aa0a6', mt: 0.5 }}>
             Customize your dashboard with widgets
           </Typography>
         </Box>
@@ -35,11 +37,17 @@ export const DashboardHeader = ({ onAddWidget }: DashboardHeaderProps) => {
           startIcon={<AddIcon />}
           onClick={onAddWidget}
           sx={{
-            borderRadius: 999,
+            borderRadius: 2,
             textTransform: 'none',
             px: 2.5,
             py: 1,
-            boxShadow: '0 10px 25px rgba(15,23,42,0.25)',
+            backgroundColor: '#0066cc',
+            fontWeight: 500,
+            boxShadow: '0 4px 12px rgba(0, 102, 204, 0.3)',
+            '&:hover': {
+              backgroundColor: '#0073e6',
+              boxShadow: '0 6px 16px rgba(0, 102, 204, 0.4)',
+            },
           }}
         >
           Add Widget

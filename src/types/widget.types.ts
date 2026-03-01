@@ -11,9 +11,17 @@ export type LayoutItem = {
     maxH?: number
 }
 
+export type WidgetSettings = {
+    title?: string
+    subtitle?: string
+    textColor?: string
+    textSize?: number // in rem or px
+}
+
 export type WidgetConfig = {
     id: number
     type: WidgetType
     layout: LayoutItem
+    settings?: WidgetSettings
 }
 

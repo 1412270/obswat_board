@@ -1,6 +1,6 @@
 import { Responsive, WidthProvider } from 'react-grid-layout/legacy'
 import type { LayoutItem, ResponsiveLayouts } from 'react-grid-layout'
-import type { WidgetConfig } from '../types/widget.types'
+import type { WidgetConfig, WidgetSettings } from '../types/widget.types'
 import { WidgetRenderer } from './widgets/WidgetRenderer'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
@@ -11,9 +11,10 @@ type DashboardGridProps = {
   widgets: WidgetConfig[]
   onRemoveWidget: (id: number) => void
   onLayoutChange: (_layout: unknown, layouts: ResponsiveLayouts) => void
+  onSettingsChange?: (id: number, settings: WidgetSettings) => void
 }
 
-export const DashboardGrid = ({ widgets, onRemoveWidget, onLayoutChange }: DashboardGridProps) => {
+export const DashboardGrid = ({ widgets, onRemoveWidget, onLayoutChange, onSettingsChange }: DashboardGridProps) => {
   // Convert widgets to react-grid-layout format
   const layouts: ResponsiveLayouts = {
     lg: widgets.map((widget): LayoutItem => ({
@@ -64,7 +65,7 @@ export const DashboardGrid = ({ widgets, onRemoveWidget, onLayoutChange }: Dashb
       layouts={layouts}
       onLayoutChange={onLayoutChange}
       breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-      cols={{ lg: 3, md: 3, sm: 1, xs: 1, xxs: 1 }}
+      cols={{ lg: 4, md: 4, sm: 1, xs: 1, xxs: 1 }}
       rowHeight={120}
       isDraggable={true}
       isResizable={true}
@@ -74,7 +75,7 @@ export const DashboardGrid = ({ widgets, onRemoveWidget, onLayoutChange }: Dashb
     >
       {widgets.map((widget) => (
         <div key={widget.id} style={{ height: '100%' }}>
-          <WidgetRenderer widget={widget} onRemove={onRemoveWidget} />
+          <WidgetRenderer widget={widget} onRemove={onRemoveWidget} onSettingsChange={onSettingsChange} />
         </div>
       ))}
     </ResponsiveGridLayout>

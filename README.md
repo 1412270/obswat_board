@@ -1,73 +1,293 @@
-# React + TypeScript + Vite
+# OBSWAT Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, customizable dashboard application built with React and TypeScript. This single-page application (SPA) provides a flexible widget-based interface where users can create, customize, and manage various data visualization widgets in a responsive grid layout.
 
-Currently, two official plugins are available:
+## 🎯 Project Idea
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+OBSWAT Dashboard is a fully customizable dashboard platform that allows users to build personalized data visualization boards. The application features a drag-and-drop interface where users can add, remove, resize, and customize various widget types. Each widget can be individually configured with custom settings including appearance, data sources, and display options.
 
-## React Compiler
+The dashboard is designed with a professional dark theme inspired by modern cybersecurity platforms, providing an intuitive and visually appealing user experience.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+### Core Functionality
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Drag & Drop Layout**: Resizable and draggable widgets using React Grid Layout
+- **Responsive Design**: Adapts to different screen sizes (desktop, tablet, mobile)
+- **Widget Management**: Add, remove, and customize widgets dynamically
+- **Persistent Settings**: Widget configurations are saved and persist across sessions
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Available Widgets
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. **Weather Widget**
+   - Real-time weather data from Open-Meteo API
+   - Customizable location (latitude/longitude)
+   - Display options: Temperature, Humidity, Wind Speed, Weather Condition, Pressure
+   - Auto-refreshes every 10 minutes
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Counter Widget**
+   - Animated number counter
+   - Time range selection: Today, This Week, This Month, This Year
+   - Dynamic data generation based on selected time range
+
+3. **Revenue Widget**
+   - Revenue metrics display
+   - Time range selection with scaled data
+   - Trend indicators
+
+4. **Clock Widget**
+   - Real-time clock with date display
+   - Updates every second
+   - Customizable title and subtitle
+
+5. **Chart Widget (Data Visualization)**
+   - Multiple chart types: Line, Bar, Area
+   - Customizable colors and line width
+   - Responsive sizing that adapts to panel size
+   - Interactive tooltips
+
+6. **Info Card Widget**
+   - Static information display
+   - Customizable content
+
+### Widget Customization
+
+Each widget supports extensive customization through settings dialogs:
+
+- **Panel Name & Subtitle**: Custom titles for each widget
+- **Text Color**: Choose from 8 predefined colors
+- **Text Size**: Adjustable from 75% to 150% of normal size
+- **Widget-Specific Settings**:
+  - Weather: Location coordinates, display options
+  - Counter/Revenue: Time range selection
+  - Chart: Chart type, color, line width
+
+### Theme & Design
+
+- **Dark Theme**: Professional dark blue/black color scheme
+- **Modern UI**: Clean, minimalist design with smooth animations
+- **Consistent Styling**: Material-UI components with custom theme
+- **Hover Effects**: Interactive feedback on widgets and buttons
+
+## 🛠️ Technologies Used
+
+### Core Framework
+- **React 19.2.0**: UI library for building the interface
+- **TypeScript 5.9.3**: Type-safe JavaScript
+- **Vite 7.3.1**: Fast build tool and development server
+
+### UI Libraries
+- **Material-UI (MUI) 7.3.8**: Component library and theming
+  - `@mui/material`: Core components
+  - `@mui/icons-material`: Icon set
+  - `@emotion/react` & `@emotion/styled`: CSS-in-JS styling
+
+### Layout & Grid
+- **react-grid-layout 2.2.2**: Drag-and-drop grid layout system
+- **react-resizable 3.1.3**: Resizable components
+
+### Data Visualization
+- **Recharts 3.7.0**: Charting library for React
+
+### External APIs
+- **Open-Meteo API**: Free weather data API (no API key required)
+  - Documentation: https://open-meteo.com/en/docs
+
+### Development Tools
+- **ESLint**: Code linting
+- **TypeScript ESLint**: TypeScript-specific linting rules
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or yarn package manager
+
+### Setup Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd obswat_board
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+5. **Preview production build**
+   ```bash
+   npm run preview
+   ```
+
+## 📖 User Documentation
+
+### Getting Started
+
+1. **Adding Widgets**
+   - Click the "Add Widget" button in the header
+   - Select a widget type from the dialog
+   - The widget will appear on your dashboard
+
+2. **Moving Widgets**
+   - Click and drag any widget to reposition it
+   - The grid will automatically adjust other widgets
+
+3. **Resizing Widgets**
+   - Hover over the bottom-right corner of a widget
+   - Click and drag to resize
+   - Minimum and maximum sizes are enforced per widget type
+
+4. **Customizing Widgets**
+   - Click the settings icon (⚙️) on any widget
+   - Adjust settings in the dialog:
+     - Change panel name and subtitle
+     - Select text color and size
+     - Configure widget-specific options
+   - Click "Done" to save changes
+
+### Widget-Specific Guides
+
+#### Weather Widget
+1. Open settings from the widget
+2. **Location**: Enter latitude and longitude coordinates
+   - Default: Ho Chi Minh City (10.8231°N, 106.6297°E)
+3. **Display Options**: Check/uncheck to show/hide:
+   - Temperature (default: on)
+   - Relative Humidity
+   - Wind Speed
+   - Weather Condition (default: on)
+   - Sea Level Pressure
+4. Weather data refreshes automatically every 10 minutes
+
+#### Counter & Revenue Widgets
+1. Open settings from the widget
+2. **Time Range**: Select from dropdown:
+   - Today
+   - This Week
+   - This Month
+   - This Year
+3. Data automatically updates based on selected time range
+4. The subtitle displays the current time range
+
+#### Chart Widget
+1. Click settings icon to open menu
+2. Choose **Chart Settings** for:
+   - Chart Type: Line, Bar, or Area
+   - Color: Select from color palette
+   - Line Width: Adjust slider (1-5)
+3. Choose **Widget Settings** for:
+   - Panel name and subtitle
+   - Text color and size
+4. Chart automatically resizes with panel dimensions
+
+### Keyboard Shortcuts
+
+- **Drag**: Click and hold widget, then move mouse
+- **Resize**: Hover over widget corner, then drag
+- **Remove**: Click the X icon in widget header
+
+### Tips & Best Practices
+
+- **Layout Planning**: Plan your widget layout before adding many widgets
+- **Responsive Design**: Test your dashboard on different screen sizes
+- **Widget Settings**: Save time by configuring widgets when you add them
+- **Weather Updates**: Weather data updates automatically; no manual refresh needed
+- **Chart Sizing**: Charts automatically adapt to panel size - resize panels to see charts adjust
+
+## 🏗️ Project Structure
+
+```
+obswat_board/
+├── src/
+│   ├── components/
+│   │   ├── dialogs/          # Settings and configuration dialogs
+│   │   │   ├── AddWidgetDialog.tsx
+│   │   │   ├── ChartSettingsDialog.tsx
+│   │   │   ├── CounterRevenueSettingsDialog.tsx
+│   │   │   ├── WeatherSettingsDialog.tsx
+│   │   │   └── WidgetSettingsDialog.tsx
+│   │   ├── widgets/          # Individual widget components
+│   │   │   ├── ChartWidget.tsx
+│   │   │   ├── ClockWidget.tsx
+│   │   │   ├── CounterWidget.tsx
+│   │   │   ├── InfoWidget.tsx
+│   │   │   ├── RevenueWidget.tsx
+│   │   │   ├── WeatherWidget.tsx
+│   │   │   └── WidgetRenderer.tsx
+│   │   ├── AnimatedCounter.tsx
+│   │   ├── DashboardGrid.tsx
+│   │   ├── DashboardHeader.tsx
+│   │   └── WidgetCard.tsx
+│   ├── constants/
+│   │   └── widgets.constants.ts
+│   ├── theme/
+│   │   └── theme.ts          # Material-UI theme configuration
+│   ├── types/
+│   │   └── widget.types.ts  # TypeScript type definitions
+│   ├── utils/
+│   │   ├── weather.api.ts   # Weather API integration
+│   │   └── widget.utils.ts
+│   ├── App.tsx              # Main application component
+│   ├── App.css              # Global styles
+│   ├── index.css            # Base styles
+│   └── main.tsx             # Application entry point
+├── public/                  # Static assets
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎨 Theme Customization
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The application uses a custom Material-UI theme with the following color palette:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Primary Blue**: `#0066cc`
+- **Secondary Cyan**: `#00a8e8`
+- **Background Dark**: `#0a1929`
+- **Card Background**: `#1a2332`
+- **Header Background**: `#0f172a`
+- **Text Primary**: `#e8eaed`
+- **Text Secondary**: `#9aa0a6`
+- **Border**: `#2d3748`
+
+To customize the theme, edit `src/theme/theme.ts`.
+
+## 🔧 Development
+
+### Code Style
+- TypeScript strict mode enabled
+- ESLint for code quality
+- Consistent component structure
+- Type-safe props and state
+
+### Adding New Widgets
+
+1. Create widget component in `src/components/widgets/`
+2. Add widget type to `src/types/widget.types.ts`
+3. Register in `src/components/widgets/WidgetRenderer.tsx`
+4. Add to `AddWidgetDialog.tsx` options
+5. Define default layout in `src/utils/widget.utils.ts`
+
+## 📝 License
+
+This project is private and proprietary.
+
+## 🤝 Contributing
+
+This is an assessment project. For questions or issues, please contact the project maintainer.
+
+---
+
+**Built with ❤️ using React, TypeScript, and Material-UI**
