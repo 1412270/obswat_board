@@ -20,35 +20,42 @@ The dashboard is designed with a professional dark theme inspired by modern cybe
 ### Available Widgets
 
 1. **Weather Widget**
-   - Real-time weather data from Open-Meteo API
-   - Customizable location (latitude/longitude)
+   - Real-time weather data from Open-Meteo API (no API key required)
+   - Customizable location via latitude/longitude coordinates
    - Display options: Temperature, Humidity, Wind Speed, Weather Condition, Pressure
    - Auto-refreshes every 10 minutes
+   - Loading and error states
 
 2. **Counter Widget**
-   - Animated number counter
+   - Animated number counter with smooth transitions
    - Time range selection: Today, This Week, This Month, This Year
    - Dynamic data generation based on selected time range
+   - Data scales appropriately with time period
 
-3. **Revenue Widget**
-   - Revenue metrics display
-   - Time range selection with scaled data
-   - Trend indicators
+3. **Revenue Widget (Statistics)**
+   - Revenue metrics display with trend indicators
+   - Time range selection: Today, This Week, This Month, This Year
+   - Scaled data based on selected time range
+   - Percentage change indicators
 
 4. **Clock Widget**
-   - Real-time clock with date display
-   - Updates every second
+   - Real-time clock that updates every second
+   - Multiple display styles:
+     - **Text**: Simple time and date display
+     - **Calendar**: Time display + full month calendar grid with current day highlighted
+     - **Digital**: Digital clock with monospace font and dark background
    - Customizable title and subtitle
 
 5. **Chart Widget (Data Visualization)**
    - Multiple chart types: Line, Bar, Area
    - Customizable colors and line width
-   - Responsive sizing that adapts to panel size
-   - Interactive tooltips
+   - Responsive sizing that dynamically adapts to panel size
+   - Interactive tooltips and grid lines
+   - Dual settings menu: Chart Settings and Widget Settings
 
 6. **Info Card Widget**
    - Static information display
-   - Customizable content
+   - Customizable content and styling
 
 ### Widget Customization
 
@@ -58,9 +65,10 @@ Each widget supports extensive customization through settings dialogs:
 - **Text Color**: Choose from 8 predefined colors
 - **Text Size**: Adjustable from 75% to 150% of normal size
 - **Widget-Specific Settings**:
-  - Weather: Location coordinates, display options
-  - Counter/Revenue: Time range selection
-  - Chart: Chart type, color, line width
+  - **Weather**: Location coordinates (latitude/longitude), display options (temperature, humidity, wind, etc.)
+  - **Counter/Revenue**: Time range selection (Today, Week, Month, Year) via dropdown
+  - **Clock**: Display style selection (Text, Calendar, Digital)
+  - **Chart**: Chart type (Line, Bar, Area), color palette, line width
 
 ### Theme & Design
 
@@ -172,7 +180,7 @@ Each widget supports extensive customization through settings dialogs:
 4. Weather data refreshes automatically every 10 minutes
 
 #### Counter & Revenue Widgets
-1. Open settings from the widget
+1. Open settings from the widget (settings icon ⚙️)
 2. **Time Range**: Select from dropdown:
    - Today
    - This Week
@@ -180,12 +188,22 @@ Each widget supports extensive customization through settings dialogs:
    - This Year
 3. Data automatically updates based on selected time range
 4. The subtitle displays the current time range
+5. Each time range shows different random data that scales with the period
+
+#### Clock Widget
+1. Open settings from the widget
+2. **Display Style**: Choose from dropdown:
+   - **Text**: Simple time and date display
+   - **Calendar**: Shows time at top + full month calendar grid with current day highlighted
+   - **Digital**: Digital clock display with monospace font
+3. Customize panel name, subtitle, text color, and text size
+4. Clock updates in real-time every second
 
 #### Chart Widget
-1. Click settings icon to open menu
+1. Click settings icon to open menu with two options
 2. Choose **Chart Settings** for:
    - Chart Type: Line, Bar, or Area
-   - Color: Select from color palette
+   - Color: Select from Opswat-themed color palette
    - Line Width: Adjust slider (1-5)
 3. Choose **Widget Settings** for:
    - Panel name and subtitle
@@ -202,9 +220,12 @@ Each widget supports extensive customization through settings dialogs:
 
 - **Layout Planning**: Plan your widget layout before adding many widgets
 - **Responsive Design**: Test your dashboard on different screen sizes
-- **Widget Settings**: Save time by configuring widgets when you add them
-- **Weather Updates**: Weather data updates automatically; no manual refresh needed
+- **Widget Settings**: All widgets have settings buttons (⚙️) for customization
+- **Weather Updates**: Weather data updates automatically every 10 minutes; no manual refresh needed
 - **Chart Sizing**: Charts automatically adapt to panel size - resize panels to see charts adjust
+- **Time Range Data**: Counter and Revenue widgets show different data for each time range
+- **Clock Styles**: Try different clock display styles to find your preferred view
+- **Statistics Widget**: The "Statistics" widget uses the Revenue widget type for metrics display
 
 ## 🏗️ Project Structure
 
@@ -214,7 +235,9 @@ obswat_board/
 │   ├── components/
 │   │   ├── dialogs/          # Settings and configuration dialogs
 │   │   │   ├── AddWidgetDialog.tsx
+│   │   │   ├── AddWidgetDialog.tsx
 │   │   │   ├── ChartSettingsDialog.tsx
+│   │   │   ├── ClockSettingsDialog.tsx
 │   │   │   ├── CounterRevenueSettingsDialog.tsx
 │   │   │   ├── WeatherSettingsDialog.tsx
 │   │   │   └── WidgetSettingsDialog.tsx

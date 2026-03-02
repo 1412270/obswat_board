@@ -31,7 +31,7 @@ export const AddWidgetDialog = ({ open, onClose, onSelect }: AddWidgetDialogProp
       {
         type: 'weather',
         label: 'Weather',
-        description: 'Display weather information',
+        description: 'Weather information',
         icon: <WbSunnyIcon sx={{ fontSize: 32, color: '#facc15' }} />,
       },
       {
@@ -53,7 +53,7 @@ export const AddWidgetDialog = ({ open, onClose, onSelect }: AddWidgetDialogProp
         icon: <AccessTimeIcon sx={{ fontSize: 32, color: '#4f46e5' }} />,
       },
       {
-        type: 'counter',
+        type: 'revenue',
         label: 'Statistics',
         description: 'Display metrics',
         icon: <BarChartIcon sx={{ fontSize: 32, color: '#22c55e' }} />,
